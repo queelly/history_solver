@@ -12,7 +12,7 @@ def split_image(image_path, n, m):
     
     tile_width = img_width // m
     tile_height = img_height // n
-  
+    
     cnt_ready = 0
     for i in range(n):
         temp = []
@@ -30,20 +30,37 @@ def split_image(image_path, n, m):
 
         matrix.append(temp)
     return matrix
+    
 
 n = 20
 matrix = split_image("test.png", n, n)
 result = []
+
 for i in range(n):
     vertical = ''
     horisontal = ''
     for j in range(n):
         vertical += matrix[i][j]
         horisontal += matrix[j][i]
+    
     result.append(vertical + '\n')
     result.append(vertical[::-1] + '\n')
     result.append(horisontal + '\n')
     result.append(horisontal[::-1] + '\n')
+
+result.append('=' * 20 + '\n')
+
+for i in range(-n + 1, n):
+    d1 = ''
+    d2 = ''
+    for j in range(0, n):
+        if 0 <= j + i < n:
+            d1 += matrix[j][j + i]
+            d2 += matrix[j + i][j]
+    result.append(d1 + '\n')
+    result.append(d1[::-1] + '\n')
+    result.append(d2 + '\n')
+    result.append(d2[::-1] + '\n')
 
 with open('result.txt', 'w') as file_result:
     file_result.writelines(result)
